@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.alura.servletcourse.modelo.Banco;
+
 @WebServlet("/removeEmpresa")
 public class RemoveEmpresaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -19,7 +21,7 @@ public class RemoveEmpresaServlet extends HttpServlet {
 		Banco banco = new Banco();
 		banco.removeEmpresa(id);
 		
-		response.sendRedirect("listaEmpresas");
+		response.sendRedirect("empresas");
 	}
 
 }
