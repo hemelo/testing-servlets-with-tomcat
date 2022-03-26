@@ -1,4 +1,4 @@
-package br.com.alura.servletcourse;
+package br.com.alura.servletcourse.servlets;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.alura.servletcourse.modelo.Banco;
 import br.com.alura.servletcourse.modelo.Empresa;
@@ -48,7 +49,6 @@ public class EmpresasServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		System.out.println("Cadastrando nova empresa");
 		
 		String nomeEmpresa = request.getParameter("nome");
 		String paramDataEmpresa = request.getParameter("data");
@@ -68,6 +68,6 @@ public class EmpresasServlet extends HttpServlet {
 		banco.adiciona(empresa);
 		
 		request.setAttribute("empresa", empresa.getNome());
-		response.sendRedirect("listaEmpresas");
+		response.sendRedirect("empresas");
 	}
 }

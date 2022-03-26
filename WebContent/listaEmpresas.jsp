@@ -7,10 +7,17 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Java Standard Taglib</title>
+<title>Lista de Empresas</title>
 </head>
 <body>
-
+	
+	<c:if test="${not empty usuario.login}">
+		Usuario logado ${usuario.login}
+		
+		<br>
+		<br>
+	</c:if>
+	
 	<c:if test="${not empty empresa}">
 		Empresa ${ empresa } cadastrada com sucesso!
 	</c:if>
