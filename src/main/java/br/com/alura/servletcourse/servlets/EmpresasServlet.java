@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.thoughtworks.xstream.XStream;
+
 import br.com.alura.servletcourse.modelo.Banco;
 import br.com.alura.servletcourse.modelo.Empresa;
 
@@ -22,7 +25,7 @@ public class EmpresasServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
 		Banco banco = new Banco();
@@ -42,8 +45,29 @@ public class EmpresasServlet extends HttpServlet {
 		List<Empresa> lista = banco.getEmpresas();
 		request.setAttribute("empresas", lista);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/listaEmpresas.jsp");
-		rd.forward(request, response);
+		String valor = request.getHeader("Accept");
+		if(valor.contains("text/html")) {
+			RequestDispatcher rd = request.getRequestDispatcher("/listaEmpresas.jsp");
+			rd.forward(request, response);
+			
+		}
+		else if(valor.contains("xml")) {
+		    XStream xstream = new XStream();
+		    xstream.alias("empresa", Empresa.class);
+			String xml = xstream.toXML(lista);
+			  
+			response.setContentType("application/xml");
+			response.getWriter().print(xml); 
+			 
+		}
+		else if (valor.contains("json")){
+			Gson gson= new Gson();
+			String json = gson.toJson(lista);
+			 
+			response.setContentType("application/json");
+			response.getWriter().print(json);
+		}
+		
 	}
 
 	@Override
