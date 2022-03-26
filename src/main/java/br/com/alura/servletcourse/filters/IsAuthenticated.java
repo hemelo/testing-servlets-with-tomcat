@@ -1,4 +1,4 @@
-package br.com.alura.servletcourse.middlewares;
+package br.com.alura.servletcourse.filters;
 
 import java.io.IOException;
 
